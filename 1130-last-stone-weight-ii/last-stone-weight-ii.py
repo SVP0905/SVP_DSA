@@ -1,7 +1,6 @@
 class Solution:
     def lastStoneWeightII(self, stones: List[int]) -> int:
         total=sum(stones)
-        stones=sorted(stones)
         target=total//2
 
         dp=[[False]*(target+1) for _ in range(len(stones)+1)]
@@ -17,8 +16,5 @@ class Solution:
         for j in range(target,-1,-1):
             if dp[len(stones)][j]:
                 return total-2*j
-        
+            
         return total
-
-
-        
