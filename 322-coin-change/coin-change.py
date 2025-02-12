@@ -1,14 +1,14 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        m,n=len(coins)+1,amount+1
-        dp=[[float('inf')]*n for _ in range(m)]
+        m,n=len(coins),amount+1
+        dp=[float('inf')]*n
+        dp[0]=0
 
-        for i in range(m):
-            dp[i][0]=0
-        
-        for i in range(1,m):
+        for i in range(len(coins)):
+            new_dp=dp.copy()
             for j in range(1,n):
-                dp[i][j]=dp[i-1][j]
-                if j>=coins[i-1]:
-                    dp[i][j]=min(dp[i-1][j],1+dp[i][j-coins[i-1]])
-        return dp[m-1][n-1] if dp[m-1][n-1]!=float('inf') else -1
+                if j>=coins[i]:
+                    new_dp[j]=min(dp[j],1+new_dp[j-coins[i]])
+            dp=new_dp
+
+        return dp[n-1] if dp[n-1]!=float('inf') else -1 
