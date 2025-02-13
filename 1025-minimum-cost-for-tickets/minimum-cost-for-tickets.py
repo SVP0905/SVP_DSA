@@ -1,23 +1,16 @@
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+        dp=[0]*(days[-1]+1)
         travel_days=set(days)
-        dp={}
-        def dfs(day):
-            if day>days[-1]:
-                return 0
-            
-            if day not in travel_days:
-                return dfs(day+1)
-            
-            if day in dp:
-                return dp[day]
-            
-            option1=costs[0]+dfs(day+1)
-            option2=costs[1]+dfs(day+7)
-            option3=costs[2]+dfs(day+30)
 
-            dp[day]=min(option1,option2,option3)
+        for i in range(1,len(dp)):
+            if i not in travel_days:
+                dp[i]=dp[i-1]
+            else:
+                one_day=dp[i-1]+costs[0]
+                seven_day=dp[max(0,i-7)]+costs[1]
+                thirty_day=dp[max(0,i-30)]+costs[2]
 
-            return dp[day]
-        
-        return dfs(days[0])
+                dp[i]=min(one_day,seven_day,thirty_day)
+
+        return dp[days[-1]]
