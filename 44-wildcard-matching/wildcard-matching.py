@@ -1,29 +1,19 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
-        m,n=len(s),len(p)
-        memo={}
-        def dfs(i,j):
-            if (i,j) in memo:
-                return memo[(i,j)]
-            
-            if i<0 and j<0:
-                return True
-            
-            if j<0:
-                return False
-            
-            if i<0:
-                return all(p[x]=="*" for x in range(j+1))
-            
-            if p[j]=='?':
-                memo[(i,j)]=dfs(i-1,j-1)
-            elif p[j]=="*":
-                memo[(i,j)]=dfs(i-1,j) or dfs(i,j-1)
-            else:
-                memo[(i,j)]=s[i]==p[j] and dfs(i-1,j-1)
+        m,n=len(s)+1,len(p)+1
+        dp=[[False]*n for _ in range(m)]
 
-            return memo[(i,j)]
+        dp[0][0]=True
 
-        return dfs(m-1,n-1)            
+        for j in range(1,n):
+            if p[j-1]=="*":
+                dp[0][j]=dp[0][j-1]
 
+        for i in range(1,m):
+            for j in range(1,n):
+                if p[j-1]=="*":
+                    dp[i][j]=dp[i-1][j] or dp[i][j-1]
+                if s[i-1]==p[j-1] or p[j-1]=="?":
+                    dp[i][j]=dp[i-1][j-1]
         
+        return dp[m-1][n-1]
