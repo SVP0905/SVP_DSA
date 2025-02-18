@@ -1,11 +1,35 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        n=len(nums)
-        dp=[1]*n
 
-        for i in range(1,n):
-            for j in range(i):
-                if nums[i]>nums[j]:
-                    dp[i]=max(1+dp[j],dp[i])
+        def binarySearch(subseq,target,size):
+            left,right=0,size
+            while left<right:
+                mid=(left+right)//2
+                if subseq[mid]<target:
+                    left=mid+1
+                else:
+                    right=mid
+            return left
         
-        return max(dp)
+        if not nums:
+            return 0
+        
+        subseq=[0]*len(nums)
+        size=0
+
+        subseq[0]=nums[0]
+        size=1
+
+        for num in nums[1:]:
+            if num<subseq[0]:
+                subseq[0]=num
+            elif num>subseq[size-1]:
+                subseq[size]=num
+                size+=1
+            else:
+                pos=binarySearch(subseq,num,size)
+                subseq[pos]=num
+        
+        return size
+
+            
