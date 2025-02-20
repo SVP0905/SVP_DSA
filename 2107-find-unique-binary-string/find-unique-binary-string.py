@@ -5,18 +5,15 @@ class Solution:
         def dfs(str_):
             if len(str_)==n:
                 if str_ not in nums:
-                    res.append(str_)
-                    return True
-                return False
+                    return str_
+                return ''
             
-            if dfs(str_+'0'):
-                return True
-            if dfs(str_+'1'):
-                return True
-            
-            return False
+            left=dfs(str_+'0')
+            right=dfs(str_+'1')
+
+            if left:
+                return left
+            else:
+                return right
         
-        res=[]
-        if dfs(''):
-            return ''.join(res)
-            
+        return dfs('')
