@@ -1,7 +1,7 @@
 class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
         n=len(nums)
-        num=set(nums)
+        nums=set(nums)
         def dfs(str_):
             if len(str_)==n:
                 if str_ not in nums:
@@ -10,11 +10,9 @@ class Solution:
                 else:
                     return False
             
-            addzeros=dfs(str_+'0')
-            if addzeros:
+            if dfs(str_+'0'):
                 return True
-            addones=dfs(str_+'1')
-            if addones:
+            if dfs(str_+'1'):
                 return True
 
         res=[]
