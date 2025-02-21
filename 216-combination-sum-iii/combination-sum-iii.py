@@ -4,7 +4,7 @@ class Solution:
             if target==0 and len(list_)==k:
                 res.append(list_.copy())
                 return 
-            if target<0 or len(list_)>=k or i>9:
+            if target<0 or len(list_)>k or i>9:
                 return
             
             for j in range(i,10):
