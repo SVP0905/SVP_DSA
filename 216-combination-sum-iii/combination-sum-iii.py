@@ -7,10 +7,10 @@ class Solution:
             if target<0 or len(list_)>k or i>9:
                 return
             
-            for j in range(i,10):
-                list_.append(j)
-                dfs(j+1,target-j,list_)
-                list_.pop()
+            list_.append(i)
+            dfs(i+1,target-i,list_)
+            list_.pop()
+            dfs(i+1,target,list_)
         
         res=[]
         dfs(1,n,[])
