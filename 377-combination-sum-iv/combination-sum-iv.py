@@ -1,10 +1,20 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        dp=[0]*(target+1)
-        dp[0]=1
 
-        for t in range(1,target+1):
+        memo={}
+        def dfs(target):
+            if target==0:
+                return 1
+            if target<0:
+                return 0
+            if target in memo:
+                return memo[target]
+            
+            count=0
             for n in nums:
-                if t>=n:
-                    dp[t]+=dp[t-n]
-        return dp[target]
+                count+=dfs(target-n)
+
+            memo[target]=count
+            return memo[target ]
+
+        return dfs(target) 
