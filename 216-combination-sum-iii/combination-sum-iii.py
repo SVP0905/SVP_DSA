@@ -3,15 +3,14 @@ class Solution:
         def dfs(i,target,list_):
             if target==0 and len(list_)==k:
                 res.append(list_.copy())
-                return 
+                return
             if target<0 or len(list_)>k or i>9:
                 return
-            
             list_.append(i)
             dfs(i+1,target-i,list_)
             list_.pop()
             dfs(i+1,target,list_)
-        
+
         res=[]
         dfs(1,n,[])
         return res
