@@ -1,25 +1,28 @@
 class Solution:
     def lenLongestFibSubseq(self, arr: List[int]) -> int:
         n=len(arr)
-
         if n<3:
             return 0
-        
-        max_=0
         map_={arr[i]:i for i in range(n)}
+        memo={}
+        def fib(i,j):
+            if (i,j) in memo:
+                return memo[(i,j)]
 
-        def dfs(i,j,len_):
-            nonlocal max_
             next_val=arr[i]+arr[j]
 
-            if next_val in map_ and map_[next_val]>j:
-                dfs(j,map_[next_val],len_+1)
+            if next_val not in map_ or map_[next_val]<=j:
+                return 0
             
-            if len_>=3:
-                max_=max(max_,len_)
-
-        for i in range(n-2):
-            for j in range(i+1,n-1):
-                dfs(i,j,2)
+            memo[(i,j)]=1+fib(j,map_[next_val])
+            
+            return memo[(i,j)]
         
+        max_=0
+        for i in range(n):
+            for j in range(i+1,n):
+                len_=fib(i,j)
+
+                if len_>0:
+                    max_=max(max_,len_+2)
         return max_
