@@ -1,28 +1,15 @@
 class Solution:
     def applyOperations(self, nums: List[int]) -> List[int]:
         n=len(nums)
-        j=1
-        while j<n:
-            num1=nums[j-1]
-            num2=nums[j]
-            if num1==num2:
-                nums[j-1]=nums[j-1]*2
-                nums[j]=0
-
-            j+=1
-            
-        temp=[]
+        for i in range(n-1):
+            if nums[i]==nums[i+1]:
+                nums[i]*=2
+                nums[i+1]=0
+        
+        non_zero_pos=0
         for i in range(n):
             if nums[i]!=0:
-                temp.append(nums[i])
-        for i in range(len(temp)):
-            nums[i]=temp[i]
-        
-        for i in range(len(temp),n):
-            nums[i]=0
+                nums[non_zero_pos],nums[i]=nums[i],nums[non_zero_pos]
+                non_zero_pos+=1
         
         return nums
-
-
-
-        
