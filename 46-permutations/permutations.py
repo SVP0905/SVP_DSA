@@ -1,21 +1,17 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def dfs(stack_,map_):
-            if len(stack_)==len(nums):
-                res.append(stack_.copy())
+        def dfs(start):
+            if start==len(nums):
+                res.append(nums.copy())
                 return
             
-            for i in range(len(nums)):
-                if map_[i]==1:
-                    continue
-                map_[i]=1
-                stack_.append(nums[i])
-                dfs(stack_,map_)
-                stack_.pop()
-                map_[i]=0
-        
+            for i in range(start,len(nums)):
+                nums[start],nums[i]=nums[i],nums[start]
+
+                dfs(start+1)
+
+                nums[start],nums[i]=nums[i],nums[start]
+
         res=[]
-        map_=[0]*len(nums)
-        stack_=[]
-        dfs(stack_,map_)
+        dfs(0)
         return res
