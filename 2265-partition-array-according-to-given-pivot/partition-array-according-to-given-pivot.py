@@ -11,4 +11,6 @@ class Solution:
             else:
                 greater.append(num)
         
-        return les+equal+greater
+        les.extend(equal)
+        les.extend(greater)
+        return les
