@@ -9,7 +9,6 @@ class Solution:
             q.append(blocks[i])
         
         res=num_whites
-
         for i in range(k,n):
             if q.popleft()=='W':
                 num_whites-=1
@@ -19,6 +18,4 @@ class Solution:
             q.append(blocks[i])
 
             res=min(res,num_whites)
-        
         return res
-
