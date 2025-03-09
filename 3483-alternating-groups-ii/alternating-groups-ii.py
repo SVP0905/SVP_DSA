@@ -1,25 +1,21 @@
 class Solution:
     def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:
-        for i in range(k-1):
-            colors.append(colors[i])
-            
         n=len(colors)
-        result=0
-        left=0
-        right=1
-        while right<n:
-            if colors[right]==colors[right-1]:
-                left=right
-                right+=1
+        res=0
+        alternating=1
+        last_color=colors[0]
+
+        for i in range(1,n+k-1):
+            if colors[i%n]==last_color:
+                alternating=1
+                last_color=colors[i%n]
                 continue
             
-            right+=1
+            alternating+=1
 
-            if right-left<k:
-                continue
+            if alternating>=k:
+                res+=1
+            
+            last_color=colors[i%n]
 
-            result+=1
-            left+=1
-        
-        return result
-        
+        return res
