@@ -12,11 +12,11 @@ class Solution:
                         map_[i]=1
                         stack.append(nums[i])
                         permute(stack,map_)
-                        map_[i]=0
                         stack.pop()
+                        map_[i]=0
         
         res=[]
-        map_=[0]*len(nums)
         stack=[]
+        map_=[0]*len(nums)
         permute(stack,map_)
         return res
