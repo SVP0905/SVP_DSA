@@ -1,22 +1,14 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def permute(stack,map_):
-            if len(stack)==len(nums):
-                res.append(stack.copy())
+        def permute(idx):
+            if idx==len(nums):
+                res.append(nums.copy())
                 return
-            else:
-                for i in range(len(nums)):
-                    if map_[i]==1:
-                        continue
-                    else:
-                        map_[i]=1
-                        stack.append(nums[i])
-                        permute(stack,map_)
-                        stack.pop()
-                        map_[i]=0
+            for i in range(idx,len(nums)):
+                nums[i],nums[idx]=nums[idx],nums[i]
+                permute(idx+1)
+                nums[i],nums[idx]=nums[idx],nums[i]
         
         res=[]
-        stack=[]
-        map_=[0]*len(nums)
-        permute(stack,map_)
+        permute(0)
         return res
