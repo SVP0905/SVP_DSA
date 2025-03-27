@@ -1,41 +1,28 @@
 class Solution:
-    def isSafe(self,row,col,board,n):
-        r,c=row,col
-        while r>=0 and c>=0:
-            if board[r][c]=='Q':
-                return False
-            r-=1
-            c-=1
-        
-        r,c=row,col
-        while r<n and c>=0:
-            if board[r][c]=='Q':
-                return False
-            r+=1
-            c-=1
-        
-        for c in range(col):
-            if board[row][c]=='Q':
-                return False
-        
-        return True
-        
-        
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        board=[['.']*n for _ in range(n)]
+        res=[]
+        leftRow=[0]*n
+        leftUpperDiagonal=[0]*(2*n-1)
+        leftLowerDiagonal=[0]*(2*n-1)
+        self.solve(0,board,res,n,leftRow,leftUpperDiagonal,leftLowerDiagonal)
 
-    def solve(self,col,board,ans,n):
+        return res
+    
+    def solve(self,col,board,res,n,leftRow,leftUpperDiagonal,leftLowerDiagonal):
         if col==n:
-            ans.append([''.join(row) for row in board])
+            res.append([''.join(row) for row in board])
             return
         
         for row in range(n):
-            if self.isSafe(row,col,board,n):
+            if leftRow[row]==0 and leftUpperDiagonal[n-1+col-row]==0 and leftLowerDiagonal[row+col]==0:
                 board[row][col]='Q'
-                self.solve(col+1,board,ans,n)
+                leftRow[row]=1
+                leftUpperDiagonal[n-1+col-row]=1
+                leftLowerDiagonal[row+col]=1
+                self.solve(col+1,board,res,n,leftRow,leftUpperDiagonal,leftLowerDiagonal)
                 board[row][col]='.'
+                leftRow[row]=0
+                leftUpperDiagonal[n-1+col-row]=0
+                leftLowerDiagonal[row+col]=0
 
-    
-    def solveNQueens(self, n: int) -> List[List[str]]:
-        ans=[]
-        board=[['.']*n for _ in range(n)]
-        self.solve(0,board,ans,n)
-        return ans
