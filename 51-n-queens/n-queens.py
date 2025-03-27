@@ -24,18 +24,18 @@ class Solution:
 
     def solve(self,col,board,ans,n):
         if col==n:
-            ans.append(board.copy())
+            ans.append([''.join(row) for row in board])
             return
         
         for row in range(n):
             if self.isSafe(row,col,board,n):
-                board[row]=board[row][:col]+'Q'+board[row][col+1:]
+                board[row][col]='Q'
                 self.solve(col+1,board,ans,n)
-                board[row]=board[row][:col]+'.'+board[row][col+1:]
+                board[row][col]='.'
 
     
     def solveNQueens(self, n: int) -> List[List[str]]:
         ans=[]
-        board=['.'*n for _ in range(n)]
+        board=[['.']*n for _ in range(n)]
         self.solve(0,board,ans,n)
         return ans
