@@ -3,14 +3,15 @@ class Solution:
         map_=defaultdict(int)
         for i in range(len(s)):
             map_[s[i]]=i
-        # print(map_)
-        start=0
-        end=0
-        ans=[]
+        
+        res,start,end=[],0,0
+
         for i in range(len(s)):
             end=max(end,map_[s[i]])
+
             if i==end:
-                ans.append(end-start+1)
+                res.append(end-start+1)
                 start=i+1
-        return ans
+        
+        return res
         
