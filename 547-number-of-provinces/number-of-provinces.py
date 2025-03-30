@@ -5,33 +5,31 @@ class DisjointSetUnion:
         for i in range(n+1):
             self.parent[i]=i
     
-    def findParent(self,node):
-        if node==self.parent[node]:
+    def find(self,node):
+        if self.parent[node]==node:
             return node
         else:
-            self.parent[node]=self.findParent(self.parent[node])
+            self.parent[node]=self.find(self.parent[node])
             return self.parent[node]
     
     def union(self,u,v):
-        pu,pv=self.findParent(u),self.findParent(v)
-
+        pu,pv=self.find(u),self.find(v)
         if pu==pv:
-            return False
-        if self.rank[pu]<self.rank[pv]:
+            return
+        elif self.rank[pu]<self.rank[pv]:
             self.parent[pu]=pv
         elif self.rank[pv]<self.rank[pu]:
             self.parent[pv]=pu
         else:
             self.parent[pu]=pv
             self.rank[pv]+=1
-        return True
 
 
 class Solution:
-    
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         n=len(isConnected)
         DSU=DisjointSetUnion(n)
+
         for i in range(n):
             for j in range(i+1,n):
                 if isConnected[i][j]==1:
@@ -39,10 +37,7 @@ class Solution:
         
         provinces=set()
         for i in range(n):
-            provinces.add(DSU.findParent(i))
+            provinces.add(DSU.find(i))
 
         return len(provinces)
-        
-
-                    
         
