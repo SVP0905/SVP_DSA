@@ -8,10 +8,8 @@ class Solution:
 
         for i in range(len(s)):
             end=max(end,map_[s[i]])
-
             if i==end:
                 res.append(end-start+1)
-                start=i+1
+                start=end+1
         
         return res
-        
