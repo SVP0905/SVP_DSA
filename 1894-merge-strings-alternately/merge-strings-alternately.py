@@ -13,6 +13,5 @@ class Solution:
             arr.append(word1[l:])
         if r<n:
             arr.append(word2[r:])
-        
+
         return ''.join(arr)
-            
