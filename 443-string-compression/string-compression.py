@@ -6,6 +6,7 @@ class Solution:
         while read<n:
             current_char=chars[read]
             count=1
+
             while read+1<n and chars[read+1]==current_char:
                 read+=1
                 count+=1
@@ -20,5 +21,5 @@ class Solution:
                     write+=1
             
             read+=1
-        
+
         return write
