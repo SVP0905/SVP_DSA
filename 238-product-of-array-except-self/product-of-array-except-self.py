@@ -4,6 +4,7 @@ class Solution:
 
         prefix=1
         res=[1]*n
+
         for i in range(n):
             res[i]=prefix
             prefix*=nums[i]
