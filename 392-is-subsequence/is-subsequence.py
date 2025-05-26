@@ -3,7 +3,6 @@ class Solution:
         def dfs(s_idx,t_idx):
             if s_idx==len(s):
                 return True
-            
             if t_idx==len(t):
                 return False
             
