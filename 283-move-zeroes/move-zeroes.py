@@ -4,9 +4,6 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         n=len(nums)
-        if n<2:
-            return nums
-
         left=0
 
         while left<n and nums[left]!=0:
@@ -23,8 +20,3 @@ class Solution:
                 right+=1
         
         return nums
-        
-            
-
-
-        
