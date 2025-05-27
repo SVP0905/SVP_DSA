@@ -6,7 +6,10 @@ class Solution:
         res=current
 
         for i in range(k,len(s)):
-            current+=(s[i] in vowels)-(s[i-k] in vowels)
+            if s[i] in vowels:
+                current+=1
+            if s[i-k] in vowels:
+                current-=1
             res=max(res,current)
         
         return res
