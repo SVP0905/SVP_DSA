@@ -15,5 +15,4 @@ class Solution:
                 cur_str=previous_str+cur_str*num
             else:
                 cur_str+=ch
-        
         return cur_str
