@@ -40,8 +40,9 @@ class Solution:
             remaining_choices = 1
         else:
             remaining_choices = self.mod_power(m - 1, remaining_segments, self.mod)
-            
-        result = (ways_to_partition * first_segment_choices) % self.mod
-        result = (result * remaining_choices) % self.mod
+
+        result=1 
+        result = (result*ways_to_partition * first_segment_choices*remaining_choices) % self.mod
+        # result = (result * remaining_choices) % self.mod
             
         return result
