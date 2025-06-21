@@ -3,7 +3,6 @@ class Solution:
         freq=Counter(word)
         freq_values=list(freq.values())
         freq_values.sort()
-
         min_del=float('inf')
 
         for f in range(freq_values[0],freq_values[-1]+1):
@@ -13,6 +12,5 @@ class Solution:
                     deletions+=val
                 elif val>f+k:
                     deletions+=val-(f+k)
-            
             min_del=min(min_del,deletions)
         return min_del
