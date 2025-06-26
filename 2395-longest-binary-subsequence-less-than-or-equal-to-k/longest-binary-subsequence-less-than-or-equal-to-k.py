@@ -5,13 +5,12 @@ class Solution:
             if ch=='0':
                 zeros+=1
         
-        current_val=0
+        cur_val=0
         ones=0
         for i,ch in enumerate(reversed(s)):
             if ch=='1':
                 bit_val=2**i
-                if current_val+bit_val<=k:
-                    current_val+=bit_val
+                if cur_val+bit_val<=k:
+                    cur_val+=bit_val
                     ones+=1
-        
         return zeros+ones
