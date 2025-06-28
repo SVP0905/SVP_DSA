@@ -1,16 +1,18 @@
 class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
-        def dfs(i,target,list_):
-            if target==0 and len(list_)==k:
-                res.append(list_.copy())
-                return
-            if target<0 or len(list_)>k or i>9:
-                return
-            list_.append(i)
-            dfs(i+1,target-i,list_)
-            list_.pop()
-            dfs(i+1,target,list_)
-
         res=[]
-        dfs(1,n,[])
+
+        def dfs(i,sum_,arr):
+            if sum_==n and len(arr)==k:
+                res.append(arr.copy())
+                return
+            
+            if sum_>n or len(arr)>k or i>9:
+                return
+            
+            arr.append(i)
+            dfs(i+1,sum_+i,arr)
+            arr.pop()
+            dfs(i+1,sum_,arr)
+        dfs(1,0,[])
         return res
