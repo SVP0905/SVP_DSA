@@ -5,9 +5,8 @@ class Solution:
         for ch in s:
             if ch in vowels:
                 v.append(ch)
-        
-        i=0
         v.reverse()
+        i=0
         res=[]
         for ch in s:
             if ch not in vowels:
@@ -16,5 +15,3 @@ class Solution:
                 res.append(v[i])
                 i+=1
         return ''.join(res)
-
-                 
