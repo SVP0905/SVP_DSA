@@ -19,15 +19,12 @@ class Solution:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
-
-        bfs(root)
         
         def dfs(node,sum_):
             if not node:
                 return 0
             cnt=0
             sum_+=node.val
-            
             if sum_==targetSum:
                 cnt+=1
             
@@ -35,9 +32,8 @@ class Solution:
             cnt+=dfs(node.right,sum_)
             return cnt
         
+        bfs(root)
         cnt=0
         for node in all_nodes:
             cnt+=dfs(node,0)
-        
         return cnt
-        
