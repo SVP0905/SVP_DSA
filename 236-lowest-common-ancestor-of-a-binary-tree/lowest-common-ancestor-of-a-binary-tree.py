@@ -12,7 +12,7 @@ class Solution:
         
         if root==p:
             return p
-
+        
         if root==q:
             return q
         
@@ -21,10 +21,10 @@ class Solution:
 
         if left and right:
             return root
+        
         if left:
             return left
         if right:
             return right
-
+        
         return None
-    
