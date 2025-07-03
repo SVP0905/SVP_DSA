@@ -5,7 +5,6 @@ class Solution:
             if i>=len(nums):
                 res.append(arr.copy())
                 return
-            
             arr.append(nums[i])
             dfs(i+1,arr)
             arr.pop()
