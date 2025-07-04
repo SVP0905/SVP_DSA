@@ -10,14 +10,14 @@ class Solution:
         def dfs(node,max_):
             nonlocal cnt
             if not node:
-                return 
+                return
             
             if node.val>=max_:
                 cnt+=1
             
-            max_=max(max_,node.val)
+            max_=max(node.val,max_)
             dfs(node.left,max_)
             dfs(node.right,max_)
-        
         dfs(root,root.val)
+
         return cnt
