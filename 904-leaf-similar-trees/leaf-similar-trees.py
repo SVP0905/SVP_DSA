@@ -17,14 +17,13 @@ class Solution:
         l1,l2=[],[]
         dfs(root1,l1)
         dfs(root2,l2)
-        print(l1)
-        print(l2)
-        if len(l1)<len(l2):
-            return False
-        if len(l2)<len(l1):
-            return False
 
+        if len(l1)!=len(l2):
+            return False
+        
         for i in range(len(l1)):
             if l1[i].val!=l2[i].val:
                 return False
         return True
+        
+        
