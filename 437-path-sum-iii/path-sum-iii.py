@@ -6,34 +6,32 @@
 #         self.right = right
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        all_nodes=[]
-        def bfs(node):
-            nonlocal all_nodes
-            if not node:
-                return
-            q=deque([node])
-            while q:
+        if not root:
+            return 0
+        q=deque([root])
+        cnt=0
+        while q:
+            len_q=len(q)
+            for _ in range(len_q):
                 node=q.popleft()
-                all_nodes.append(node)
                 if node.left:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
+                cnt+=self.dfs(node,0,targetSum)
         
-        def dfs(node,sum_):
+        return cnt
+
+    def dfs(self,node,sum_,targetSum):
             if not node:
                 return 0
             cnt=0
             sum_+=node.val
+
             if sum_==targetSum:
                 cnt+=1
             
-            cnt+=dfs(node.left,sum_)
-            cnt+=dfs(node.right,sum_)
+            cnt+=self.dfs(node.left,sum_,targetSum)
+            cnt+=self.dfs(node.right,sum_,targetSum)
+
             return cnt
-        
-        bfs(root)
-        cnt=0
-        for node in all_nodes:
-            cnt+=dfs(node,0)
-        return cnt
