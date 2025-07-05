@@ -6,23 +6,23 @@ class DSU:
             self.parent[i]=i
     
     def find(self,u):
-        if self.parent[u]==u:
+        if u==self.parent[u]:
             return u
         return self.find(self.parent[u])
     
+
     def union(self,u,v):
         pu,pv=self.find(u),self.find(v)
-        if pu==pv:
-            return
-        
+
         if self.rank[pu]<self.rank[pv]:
             self.parent[pu]=pv
         elif self.rank[pv]<self.rank[pu]:
             self.parent[pv]=pu
         else:
-            self.parent[pu]=pv
-            self.rank[pv]+=1
+            self.parent[pv]=pu
+            self.rank[pu]+=1
     
+
 
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
@@ -33,8 +33,7 @@ class Solution:
                 if isConnected[i][j]==1:
                     dsu.union(i,j)
         
-        province=set()
+        res=set()
         for i in range(n):
-            province.add(dsu.find(i))
-        
-        return len(province)
+            res.add(dsu.find(i))
+        return len(res)
