@@ -10,20 +10,13 @@ class Solution:
             if not node:
                 return
             if not node.left and not node.right:
-                arr.append(node)
-            
+                arr.append(node.val)
+                
             dfs(node.left,arr)
             dfs(node.right,arr)
         l1,l2=[],[]
         dfs(root1,l1)
         dfs(root2,l2)
 
-        if len(l1)!=len(l2):
-            return False
-        
-        for i in range(len(l1)):
-            if l1[i].val!=l2[i].val:
-                return False
-        return True
-        
-        
+        return l1==l2
+            
