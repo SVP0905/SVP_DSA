@@ -10,18 +10,17 @@ class Solution:
             slow=slow.next
             fast=fast.next.next
         
-        cur,prev=slow,None
+        prev,cur=None,slow
         while cur:
             nxt=cur.next
             cur.next=prev
             prev=cur
             cur=nxt
         
-        first,second=head,prev
+        fs,sc=head,prev
         sum_=0
-        while second:
-            sum_=max(sum_,first.val+second.val)
-            first=first.next
-            second=second.next
-        
+        while sc:
+            sum_=max(sum_,fs.val+sc.val)
+            fs=fs.next
+            sc=sc.next
         return sum_
