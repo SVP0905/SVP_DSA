@@ -1,16 +1,15 @@
 class Solution:
     def maxFreeTime(self, eventTime: int, k: int, startTime: List[int], endTime: List[int]) -> int:
-        free_time_arr=[]
         events=list(zip(startTime,endTime))
-        events.sort()
-        prev_end=0
+        free_time_arr=[]
 
+        prev_end=0
         for start,end in events:
             free_time_arr.append(start-prev_end)
             prev_end=end
         
         free_time_arr.append(eventTime-prev_end)
-        
+
         if k>=len(free_time_arr):
             return eventTime
 
@@ -25,7 +24,3 @@ class Solution:
             max_sum=max(max_sum,window_sum)
         
         return max_sum
-        
-
-
-            
