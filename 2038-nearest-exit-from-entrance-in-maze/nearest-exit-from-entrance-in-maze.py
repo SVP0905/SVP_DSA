@@ -23,4 +23,4 @@ class Solution:
                         visited.add((new_x,new_y))
             steps+=1
 
-        return steps if steps==0 else -1
+        return -1
