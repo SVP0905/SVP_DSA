@@ -1,25 +1,25 @@
 class Solution:
     def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
-        when_rooms_become_free=[0]*n
+        available_rooms=list(range(n))
+        heapq.heapify(available_rooms)
+
+        busy_rooms=[]
         meetings_per_room=[0]*n
 
         for start,end in sorted(meetings):
-            d=end-start
-            assigned_room=None
-
-            for i in range(n):
-                if when_rooms_become_free[i]<=start:
-                    when_rooms_become_free[i]=end
-                    assigned_room=i
-                    break
+            while busy_rooms and busy_rooms[0][0]<=start:
+                end_time,room_no=heapq.heappop(busy_rooms)
+                heapq.heappush(available_rooms,room_no)
             
-            if assigned_room is None:
-                earliest_time=min(when_rooms_become_free)
-                assigned_room=when_rooms_become_free.index(earliest_time)
-
-                when_rooms_become_free[assigned_room]=earliest_time+d
-            
-            meetings_per_room[assigned_room]+=1
+            if available_rooms:
+                choosen_room=heapq.heappop(available_rooms)
+                heapq.heappush(busy_rooms,(end,choosen_room))
+            else:
+                earliest_end,earliest_room=heapq.heappop(busy_rooms)
+                d=end-start
+                new_end=earliest_end+d
+                heapq.heappush(busy_rooms,(new_end,earliest_room))
+                choosen_room=earliest_room
+            meetings_per_room[choosen_room]+=1
         
-        i=max(meetings_per_room)
-        return meetings_per_room.index(i)
+        return meetings_per_room.index(max(meetings_per_room))
