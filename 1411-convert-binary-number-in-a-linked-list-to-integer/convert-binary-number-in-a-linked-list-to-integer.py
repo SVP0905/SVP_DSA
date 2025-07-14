@@ -10,11 +10,10 @@ class Solution:
         while cur:
             num.append(cur.val)
             cur=cur.next
-
+        
         i=0
         res=0
         for num in reversed(num):
             res+=num*2**i
-            print(res)
             i+=1
         return res
