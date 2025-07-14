@@ -6,14 +6,15 @@
 class Solution:
     def getDecimalValue(self, head: Optional[ListNode]) -> int:
         cur=head
-        num=[]
+        nums=[]
+        #traverse linked list and store the values in nums arr
         while cur:
-            num.append(cur.val)
+            nums.append(cur.val)
             cur=cur.next
         
         i=0
         res=0
-        for num in reversed(num):
+        for num in reversed(nums):
             res+=num*2**i
             i+=1
         return res
