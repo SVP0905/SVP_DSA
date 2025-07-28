@@ -4,24 +4,27 @@ class Solution:
         for n in nums:
             max_bit=max_bit|n
         
-        cnt=0
+        # cnt=0
         def dfs(i,arr):
-            nonlocal cnt
+            # nonlocal cnt
             if i>=len(nums):
                 if not arr:
-                    return
+                    return 0
                 cur=0
                 for n in arr:
                     cur=cur|n
                 if cur==max_bit:
-                    cnt+=1
-                return
-            
+                    return 1
+                return 0
+            left,right=0,0
             arr.append(nums[i])
-            dfs(i+1,arr)
+            left+=dfs(i+1,arr)
             arr.pop()
-            dfs(i+1,arr)
-        subs=[]
-        dfs(0,[])
+            right+=dfs(i+1,arr)
 
-        return cnt
+            return left+right
+
+        subs=[]
+        return dfs(0,[])
+
+        # return cnt
