@@ -1,30 +1,34 @@
 class Solution:
     def countMaxOrSubsets(self, nums: List[int]) -> int:
-        max_bit=0
-        for n in nums:
-            max_bit=max_bit|n
-        
-        # cnt=0
         def dfs(i,arr):
-            # nonlocal cnt
             if i>=len(nums):
-                if not arr:
-                    return 0
-                cur=0
-                for n in arr:
-                    cur=cur|n
-                if cur==max_bit:
-                    return 1
-                return 0
-            left,right=0,0
+                subs.append(arr.copy())
+                return
+            
             arr.append(nums[i])
-            left+=dfs(i+1,arr)
+            dfs(i+1,arr)
             arr.pop()
-            right+=dfs(i+1,arr)
-
-            return left+right
-
+            dfs(i+1,arr)
+        
         subs=[]
-        return dfs(0,[])
+        dfs(0,[])
 
-        # return cnt
+        max_=0
+        for sub in subs:
+            if not sub:
+                continue
+            cur=0
+            for n in sub:
+                cur|=n
+            max_=max(max_,cur)
+        
+        cnt=0
+        for sub in subs:
+            if not sub:
+                continue
+            cur=0
+            for n in sub:
+                cur|=n
+            if cur==max_:
+                cnt+=1
+        return cnt
