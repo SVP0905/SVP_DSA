@@ -1,16 +1,15 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        i=0
+        r=0
         idx=0
         n=len(chars)
-
-        while i<n:
-            j=i
-            while j<n and chars[i]==chars[j]:
+        while r<n:
+            j=r
+            while j<n and chars[j]==chars[r]:
                 j+=1
             
-            cnt=j-i
-            chars[idx]=chars[i]
+            cnt=j-r
+            chars[idx]=chars[r]
             idx+=1
 
             if cnt>1:
@@ -18,5 +17,5 @@ class Solution:
                     chars[idx]=digit
                     idx+=1
             
-            i=j
+            r=j
         return idx
