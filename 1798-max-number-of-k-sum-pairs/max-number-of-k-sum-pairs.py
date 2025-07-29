@@ -1,25 +1,13 @@
 class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
-        res=0
-        n=len(nums)
-        nums.sort()
+        freq=Counter()
 
-        if n<2:
-            return res
-        
-        l,r=0,n-1
-
-        while l<r:
-            current_sum=nums[l]+nums[r]
-            if current_sum==k:
-                res+=1
-                l+=1
-                r-=1
-            elif current_sum<k:
-                l+=1
+        cnt=0
+        for n in nums:
+            diff=k-n
+            if freq[diff]>0:
+                cnt+=1
+                freq[diff]-=1
             else:
-                r-=1
-        
-        return res
-        
-        return res
+                freq[n]+=1
+        return cnt
