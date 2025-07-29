@@ -1,25 +1,22 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        read,write=0,0
+        i=0
+        idx=0
         n=len(chars)
 
-        while read<n:
-            current_char=chars[read]
-            count=1
-
-            while read+1<n and chars[read+1]==current_char:
-                read+=1
-                count+=1
+        while i<n:
+            j=i
+            while j<n and chars[i]==chars[j]:
+                j+=1
             
-            chars[write]=current_char
-            write+=1
+            cnt=j-i
+            chars[idx]=chars[i]
+            idx+=1
 
-            if count>1:
-                count_str=str(count)
-                for digit in count_str:
-                    chars[write]=digit
-                    write+=1
+            if cnt>1:
+                for digit in str(cnt):
+                    chars[idx]=digit
+                    idx+=1
             
-            read+=1
-
-        return write
+            i=j
+        return idx
