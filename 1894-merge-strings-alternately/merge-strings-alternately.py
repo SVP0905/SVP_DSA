@@ -1,17 +1,16 @@
 class Solution:
     def mergeAlternately(self, word1: str, word2: str) -> str:
         l,r=0,0
-        m,n=len(word1),len(word2)
         arr=[]
-        while l<m and r<n:
+        while l<len(word1) and r<len(word2):
             arr.append(word1[l])
-            l+=1
             arr.append(word2[r])
+            l+=1
             r+=1
         
-        if l<m:
+        if l<len(word1):
             arr.append(word1[l:])
-        if r<n:
+        if r<len(word2):
             arr.append(word2[r:])
-
+        
         return ''.join(arr)
