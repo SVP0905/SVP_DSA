@@ -2,8 +2,8 @@ class Solution:
     def removeStars(self, s: str) -> str:
         stack=[]
         for ch in s:
-            if stack and ch=='*':
+            if ch=='*':
                 stack.pop()
-                continue
-            stack.append(ch)
+            else:
+                stack.append(ch)
         return ''.join(stack)
