@@ -1,18 +1,20 @@
 class Solution:
     def decodeString(self, s: str) -> str:
         stack=[]
+        cur_sum=0
         cur_str=''
-        cur_num=0
         for ch in s:
             if ch.isdigit():
-                cur_num=cur_num*10+int(ch)
+                cur_sum=cur_sum*10+int(ch)
             elif ch=='[':
-                stack.append((cur_str,cur_num))
+                stack.append(cur_str)
+                stack.append(cur_sum)
                 cur_str=''
-                cur_num=0
+                cur_sum=0
             elif ch==']':
-                previous_str,num=stack.pop()
-                cur_str=previous_str+cur_str*num
+                num=stack.pop()
+                prev_str=stack.pop()
+                cur_str=prev_str+cur_str*num
             else:
                 cur_str+=ch
         return cur_str
