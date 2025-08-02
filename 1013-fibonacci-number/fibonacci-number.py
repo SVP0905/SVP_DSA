@@ -1,8 +1,13 @@
-class Solution:
-    def fib(self, n: int) -> int:
-        if n==0:
-            return 0
-        prev,cur=0,1
-        for i in range(2,n+1):
-            prev,cur=cur,prev+cur
-        return cur
+class Solution(object):
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def fib(x):
+            if x==0:
+                return 0
+            if x==1:
+                return 1
+            return fib(x-1)+fib(x-2)
+        return fib(n)
