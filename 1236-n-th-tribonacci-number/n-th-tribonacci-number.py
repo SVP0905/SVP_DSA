@@ -8,10 +8,11 @@ class Solution(object):
             return 0
         if n==1:
             return 1
-        dp=[0]*(n+1)
-        dp[1]=1
-        dp[2]=1
+            
+        prev1,prev2,cur=0,1,1
+
         for i in range(3,n+1):
-            dp[i]+=dp[i-1]+dp[i-2]+dp[i-3]
-        return dp[n]
+            temp=prev1+prev2+cur
+            prev1,prev2,cur=prev2,cur,temp
+        return cur
         
