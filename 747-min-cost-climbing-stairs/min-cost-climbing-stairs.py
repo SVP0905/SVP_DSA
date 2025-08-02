@@ -1,9 +1,22 @@
-class Solution:
-    def minCostClimbingStairs(self, cost: List[int]) -> int:
-        n=len(cost)+1
-        prev1,prev2=0,0
+class Solution(object):
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """
+        n=len(cost)
+
+        if n==1:
+            return cost[0]
+        if n==2:
+            return min(cost[0],cost[1])
+
+        dp=[0]*(n)
+        dp[0]=cost[0]
+        dp[1]=cost[1]
 
         for i in range(2,n):
-            prev1,prev2=prev2,min(cost[i-2]+prev1,cost[i-1]+prev2)
+            dp[i]=cost[i]+min(dp[i-1],dp[i-2])
         
-        return prev2
+        
+        return min(dp[n-1],dp[n-2])
