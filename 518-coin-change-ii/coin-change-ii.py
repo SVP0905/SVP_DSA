@@ -1,16 +1,19 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        m,n=len(coins),amount+1
-        dp=[0]*n
-        dp[0]=1
-
-        for i in range(m):
-            new_dp=dp.copy()
-            for j in range(1,n):
-                if j>=coins[i]:
-                    new_dp[j]+=new_dp[j-coins[i]]
-            dp=new_dp
+        @cache
+        def dfs(i,sum_):
+            if sum_==amount:
+                return 1
+            
+            if i>=len(coins) or sum_>amount:
+                return 0
+            
+            
+            left=dfs(i,sum_+coins[i])
+            right=dfs(i+1,sum_)
         
-        return dp[n-1]
-
+            return left+right
         
+        return dfs(0,0)
+
+            
