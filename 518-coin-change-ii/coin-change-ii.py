@@ -1,19 +1,20 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        @cache
-        def dfs(i,sum_):
-            if sum_==amount:
-                return 1
-            
-            if i>=len(coins) or sum_>amount:
-                return 0
-            
-            
-            left=dfs(i,sum_+coins[i])
-            right=dfs(i+1,sum_)
-        
-            return left+right
-        
-        return dfs(0,0)
+        m,n=amount,len(coins)
 
-            
+        dp=[[0]*(n+1) for _ in range(amount+1)]
+
+        for i in range(n+1):
+            dp[amount][i]=1
+        
+
+        for i in range(amount-1,-1,-1):
+            for j in range(n-1,-1,-1):
+                take,skip=0,0
+                if i+coins[j]<=amount:
+                    take=dp[i+coins[j]][j]
+                
+                skip=dp[i][j+1]
+                dp[i][j]=take+skip
+        
+        return dp[0][0]
