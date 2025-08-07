@@ -1,20 +1,17 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        memo={}
-        def dfs(remaining):
-            if remaining==0:
+        @cache
+        def dfs(sum_):
+            if sum_==target:
                 return 1
             
-            if remaining<0:
+            if sum_>target:
                 return 0
-            if remaining in memo:
-                return memo[remaining]
-
-            count=0
-            for num in nums:
-                count+=dfs(remaining-num)
             
-            memo[remaining]=count
-            return memo[remaining]
-        
-        return dfs(target)
+            total=0
+            for num in nums:
+                total+=dfs(sum_+num)
+            
+            return total
+
+        return dfs(0)
