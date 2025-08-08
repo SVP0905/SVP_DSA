@@ -1,19 +1,11 @@
 class Solution:
-    def coinChange(self, coins: List[int], amount: int) -> int:        
-        @cache
-        def dfs(sum_):
-            if sum_==amount:
-                return 0
-            if sum_>amount:
-                return float('inf')
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp=[float('inf')]*(amount+1)
+        dp[0]=0
 
-            min_=float('inf')
-            for coin in coins:
-                res=dfs(sum_+coin)
-                if res!=float('inf'):
-                    min_=min(min_,1+res)
-
-            return min_
+        for i in range(1,amount+1):
+            for j in range(len(coins)):
+                if i>=coins[j]:
+                    dp[i]=min(dp[i],1+dp[i-coins[j]])
         
-        res=dfs(0)
-        return res if res!=float('inf') else -1
+        return dp[amount] if dp[amount]!=float('inf') else -1
