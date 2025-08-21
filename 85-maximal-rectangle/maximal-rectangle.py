@@ -11,11 +11,11 @@ class Solution:
                     heights[j]=0
         
             max_=max(max_,self.longestRecInHisto(heights))
-        
-        return max_
 
+        return max_
+    
     def longestRecInHisto(self,heights):
-        heights.append(0)
+        heights=heights+[0]
         stack=[-1]
         max_=0
 
@@ -27,6 +27,6 @@ class Solution:
                 area=h*(r-l-1)
                 max_=max(max_,area)
             stack.append(i)
-            
         
+        stack.pop()
         return max_
