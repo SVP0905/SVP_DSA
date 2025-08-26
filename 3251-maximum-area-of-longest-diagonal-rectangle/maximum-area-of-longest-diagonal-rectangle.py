@@ -8,12 +8,11 @@ class Solution:
             area=a*b
             if temp>res:
                 res=temp
+                max_=area
                 length,width=a,b
             if temp==res and area>max_:
                 max_=area
                 length,width=a,b
-                
-
 
         return length*width
             
