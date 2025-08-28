@@ -8,7 +8,6 @@ class Solution:
                 r=l
                 while r<n and nums[r]==0:
                     r+=1
-                
                 k=r-l
                 cnt+=k*(k+1)//2
                 l=r
