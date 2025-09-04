@@ -1,16 +1,28 @@
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
-        m,n=len(s)+1,len(t)+1
-        dp=[0]*n
-        dp[0]=1
+        m,n=len(s),len(t)
+        memo={}
+        def dfs(i,j):
+            if j>=n:
+                return 1
+            if i>=m:
+                return 0
+            
+            if (i,j) in memo:
+                return memo[(i,j)]
+            
+            
+            cnt=0
+            
+            if s[i]==t[j]:
+                cnt+=dfs(i+1,j+1)
 
-        for i in range(1,m):
-            new_dp=dp.copy()
-            for j in range(1,n):
-                if s[i-1]==t[j-1]:
-                    new_dp[j]=dp[j]+dp[j-1]
-                else:
-                    new_dp[j]=dp[j]
-            dp=new_dp
+            cnt+=dfs(i+1,j)
+            
 
-        return dp[n-1]
+            memo[(i,j)]=cnt
+
+            return memo[(i,j)]
+        
+        return dfs(0,0)
+        
