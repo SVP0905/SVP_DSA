@@ -1,21 +1,25 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
         n=len(height)
-        prefix=[0]*n
-        suffix=[0]*n
-
-        prefix[0]=height[0]
-        for i in range(1,n):
-            prefix[i]=max(prefix[i-1],height[i])
-        
-
-        suffix[n-1]=height[n-1]
-        for i in range(n-2,-1,-1):
-            suffix[i]=max(suffix[i+1],height[i])
-        
-
+        stack=[]
         water=0
         for i in range(n):
-            water+=min(prefix[i],suffix[i])-height[i]
+            while stack and height[stack[-1]]<height[i]:
+                valley_idx=stack.pop()
+                if not stack:
+                    break
+                
+                left_boundary=stack[-1]
+                right_boundary=i
+                water_level=min(height[left_boundary],height[right_boundary])-height[valley_idx]
+                width=right_boundary-left_boundary-1
 
-        return water            
+                water+=water_level*width
+            
+            stack.append(i)
+        
+        return water
+        
+        return water
+
+            
