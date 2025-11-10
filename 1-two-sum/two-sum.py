@@ -1,18 +1,15 @@
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         map_={}
-        def dfs(i,map_):
-            if i>=len(nums):
-                return None
-            
-            diff=target-nums[i]
-            if diff in map_:
-                return (i,map_[diff])
-            map_[nums[i]]=i
-            return dfs(i+1,map_)
-        return dfs(0,map_)
+        # for i,val in enumerate(nums):
+        #     map_[val]=i
+        
+        n=len(nums)
+        for i in range(n):
+            for j in range(i+1,n):
+                if nums[i]+nums[j]==target:
+                    return [i,j]
+        return []
+        
+        
+        
