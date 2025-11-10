@@ -1,15 +1,20 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         map_={}
-        # for i,val in enumerate(nums):
-        #     map_[val]=i
+        for i,n in enumerate(nums):
+            map_[n]=i
         
-        n=len(nums)
-        for i in range(n):
-            for j in range(i+1,n):
-                if nums[i]+nums[j]==target:
-                    return [i,j]
+        print(map_)
+        
+        for i,val in enumerate(nums):
+            diff=target-val
+            if diff in map_ and map_[diff]!=i:
+                return sorted([i,map_[diff]])
         return []
+
+        
+        
+        
         
         
         
