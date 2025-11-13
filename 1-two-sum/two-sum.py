@@ -4,7 +4,7 @@ class Solution:
         for i,n in enumerate(nums):
             map_[n]=i
         
-        print(map_)
+
         
         for i,val in enumerate(nums):
             diff=target-val
