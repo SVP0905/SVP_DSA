@@ -1,21 +1,16 @@
 class Solution:
     def taskSchedulerII(self, tasks: List[int], space: int) -> int:
-        map_={}
-        days=0
-        for i in range(len(tasks)):
-            days+=1
+        last_seen={}
+        current_days=0
+        for task in tasks:
+            current_days+=1
 
-            if tasks[i] in map_:
-                allowed_days=map_[tasks[i]]+space+1
+            if task in last_seen:
+                next_allowed=last_seen[task]+space+1
 
-                if days<allowed_days:
-                    days=allowed_days
+                if current_days<next_allowed:
+                    current_days=next_allowed
             
-            map_[tasks[i]]=days
+            last_seen[task]=current_days
         
-        return days
-        
-        print(map_)
-        return days
-
-
+        return current_days
