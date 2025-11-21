@@ -1,15 +1,17 @@
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
-        map_=defaultdict(int)
+        last_indices={char:i for i,char in enumerate(s)}
+        end=0
+        prev=0
+        res=[]
         for i in range(len(s)):
-            map_[s[i]]=i
-        
-        res,start,end=[],0,0
-
-        for i in range(len(s)):
-            end=max(end,map_[s[i]])
+            cur_ch_end=last_indices[s[i]]
+            if cur_ch_end>end:
+                end=cur_ch_end
             if i==end:
-                res.append(end-start+1)
-                start=end+1
-        
+                res.append(end-prev+1)
+                prev=i+1
+
         return res
+            
+            
