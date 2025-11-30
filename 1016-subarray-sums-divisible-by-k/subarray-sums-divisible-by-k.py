@@ -9,8 +9,6 @@ class Solution:
             rem=cur_sum%k
             if rem in map_:
                 cnt+=map_[rem]
-                map_[rem]+=1
-            else:
-                map_[rem]=1
+            map_[rem]=map_.get(rem,0)+1
         
         return cnt
