@@ -1,8 +1,8 @@
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        n=len(nums)
-        map_={0:-1}
         cur_sum=0
+        map_={0:-1}
+
         for i,n in enumerate(nums):
             cur_sum+=n
             rem=cur_sum%k
@@ -11,6 +11,4 @@ class Solution:
                     return True
             else:
                 map_[rem]=i
-
-        
         return False
