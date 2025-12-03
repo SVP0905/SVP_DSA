@@ -1,14 +1,14 @@
 class Solution:
     def minSubarray(self, nums: List[int], p: int) -> int:
-        k=sum(nums)%p
+        total_sum=sum(nums)
+        k=total_sum%p
 
         if k==0:
             return 0
 
         cur_sum=0
-        map_={0:-1}
-        length=0
         res=float('inf')
+        map_={0:-1}
         for i,n in enumerate(nums):
             cur_sum+=n
             cur_rem=cur_sum%p
