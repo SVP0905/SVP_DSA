@@ -7,8 +7,11 @@ class Solution:
         for i,n in enumerate(nums):
             cur_sum+=n
             rem=cur_sum%k
+
             if rem in map_:
                 cnt+=map_[rem]
-            map_[rem]=map_.get(rem,0)+1
+                map_[rem]+=1
+            else:
+                map_[rem]=map_.get(rem,0)+1 
         
         return cnt
