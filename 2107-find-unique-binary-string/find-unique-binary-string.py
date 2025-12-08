@@ -1,19 +1,20 @@
 class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
-        n=len(nums)
-        nums=set(nums)
-        def dfs(str_):
-            if len(str_)==n:
-                if str_ not in nums:
-                    return str_
-                return ''
-            
-            left=dfs(str_+'0')
-            right=dfs(str_+'1')
+        num_set=set(nums)
 
-            if left:
-                return left
-            else:
-                return right
+        def dfs(cur_s):
+            if len(cur_s)>=len(nums):
+                if cur_s not in num_set:
+                    return cur_s
+                else:
+                    return None
+            
+            res=dfs(cur_s+'0')
+            if res: return res
+
+            res=dfs(cur_s+'1')
+            if res: return res
+
+            return None
         
         return dfs('')
