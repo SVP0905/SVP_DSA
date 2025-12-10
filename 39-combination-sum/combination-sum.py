@@ -4,9 +4,6 @@ class Solution:
         candidates.sort()
 
         def dfs(start_idx,path):
-            if start_idx>=len(candidates) or sum(path)>target:
-                return
-            
             if sum(path)==target:
                 res.append(path.copy())
                 return
