@@ -1,7 +1,7 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res=[]
-        info=[False]*len(nums)
+        visited=[False]*len(nums)
         def dfs(depth,path):
             if depth==len(nums):
                 res.append(path.copy())
@@ -9,12 +9,12 @@ class Solution:
             
 
             for i in range(len(nums)):
-                if not info[i]:
+                if not visited[i]:
                     path.append(nums[i])
-                    info[i]=True
+                    visited[i]=True
                     dfs(depth+1,path)
                     path.pop()
-                    info[i]=False
+                    visited[i]=False
         
         dfs(0,[])
 
