@@ -1,16 +1,20 @@
 class Solution:
     def numTilePossibilities(self, tiles: str) -> int:
-        count=Counter(tiles)
-        def backtrack():
-            nonlocal total
-            nonlocal count
-            for c in count:
-                if count[c]>0:
-                    count[c]-=1
-                    total+=1
-                    backtrack()
-                    count[c]+=1
-        total=0
-        backtrack()
+        map_=[0]*26
+        for ch in tiles:
+            map_[ord(ch)-ord('A')]+=1
 
-        return total
+        def dfs():
+            total=0
+            for i in range(26):
+                if map_[i]==0:
+                    continue
+                
+                total+=1
+                map_[i]-=1
+                total+=dfs()
+                map_[i]+=1
+            
+            return total
+        
+        return dfs()
