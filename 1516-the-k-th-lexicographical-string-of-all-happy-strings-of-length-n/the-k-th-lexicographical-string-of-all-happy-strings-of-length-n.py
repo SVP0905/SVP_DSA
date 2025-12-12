@@ -9,10 +9,10 @@ class Solution:
                 return
             
 
-            for i in range(len(chars)):
-                if path and chars[i]==path[-1]:
+            for ch in chars:
+                if path and ch==path[-1]:
                     continue
-                path.append(chars[i])
+                path.append(ch)
                 dfs(path)
                 path.pop()
         
