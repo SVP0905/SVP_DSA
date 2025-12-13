@@ -1,28 +1,38 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         board=[['.']*n for _ in range(n)]
+        cols=set()
+        neg_diag=set() #\ (r-c=constant)
+        pos_diag=set() #/ (r+c=constant)
+
         res=[]
-        leftRow=[0]*n
-        leftUpperDiagonal=[0]*(2*n-1)
-        leftLowerDiagonal=[0]*(2*n-1)
-        self.solve(0,board,res,n,leftRow,leftUpperDiagonal,leftLowerDiagonal)
+        def dfs(r):
+            if r==n:
+                copy=[''.join(row) for row in board]
+                res.append(copy)
+                return
+            
+
+            for c in range(n):
+                if (c in cols or (r-c) in neg_diag or (r+c) in pos_diag):
+                    continue
+                
+                cols.add(c)
+                neg_diag.add(r-c)
+                pos_diag.add(r+c)
+                board[r][c]='Q'
+
+                dfs(r+1)
+
+                board[r][c]='.'
+                cols.remove(c)
+                neg_diag.remove(r-c)
+                pos_diag.remove(r+c)
+        
+
+        dfs(0)
 
         return res
-    
-    def solve(self,col,board,res,n,leftRow,leftUpperDiagonal,leftLowerDiagonal):
-        if col==n:
-            res.append([''.join(row) for row in board])
-            return
-        
-        for row in range(n):
-            if leftRow[row]==0 and leftUpperDiagonal[n-1+col-row]==0 and leftLowerDiagonal[row+col]==0:
-                board[row][col]='Q'
-                leftRow[row]=1
-                leftUpperDiagonal[n-1+col-row]=1
-                leftLowerDiagonal[row+col]=1
-                self.solve(col+1,board,res,n,leftRow,leftUpperDiagonal,leftLowerDiagonal)
-                board[row][col]='.'
-                leftRow[row]=0
-                leftUpperDiagonal[n-1+col-row]=0
-                leftLowerDiagonal[row+col]=0
 
+
+                
