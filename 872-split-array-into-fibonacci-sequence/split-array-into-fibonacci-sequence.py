@@ -13,8 +13,9 @@ class Solution:
                 chunk=num[start_i:j+1]
                 val=int(chunk)
 
+                # Constraint: Leading zero and Constraint: Size limit
                 if (chunk[0]=='0' and len(chunk)>1) or val>2**31-1:
-                    return
+                    break
                 
                 if len(path)>=2:
                     needed=path[-1]+path[-2]
