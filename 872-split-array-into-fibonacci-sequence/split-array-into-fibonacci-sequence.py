@@ -11,12 +11,9 @@ class Solution:
             
             for j in range(start_i,len(num)):
                 chunk=num[start_i:j+1]
-
-                if chunk[0]=='0' and len(chunk)>1:
-                    return
-                
                 val=int(chunk)
-                if val>2**31-1:
+
+                if (chunk[0]=='0' and len(chunk)>1) or val>2**31-1:
                     return
                 
                 if len(path)>=2:
