@@ -1,12 +1,19 @@
-class Solution(object):
-    def climbStairs(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        prev,cur=1,1
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        memo={}
+        def dfs(n):
+            if n in memo:
+                return memo[n]
 
-        for i in range(2,n+1):
-            temp=prev+cur
-            prev,cur=cur,temp
-        return cur
+            if n<0:
+                return 0
+
+            if n==0:
+                return 1
+            
+            
+            memo[n]=dfs(n-1)+dfs(n-2)
+
+            return memo[n]
+        
+        return dfs(n)
