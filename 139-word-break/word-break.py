@@ -1,20 +1,16 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         word_set=set(wordDict)
+        n=len(s)
 
-        @cache
-        def dfs(start_i):
-            if start_i==len(s):
-                return True
-            
+        dp=[False]*(n+1)
+        dp[0]=True #empy string is valid
 
+        for i in range(1,n+1):
+            for j in range(i):
 
-            for j in range(start_i,len(s)):
-                chunk=s[start_i:j+1]
-                if chunk in word_set:
-                    if dfs(j+1):
-                        return True
-            
-            return False
-
-        return dfs(0)
+                if dp[j] and s[j:i] in word_set:
+                    dp[i]=True
+                    break
+        
+        return dp[n]
