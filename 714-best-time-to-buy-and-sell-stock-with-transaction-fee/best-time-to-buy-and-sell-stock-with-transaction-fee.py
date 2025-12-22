@@ -1,20 +1,17 @@
 class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
-        @cache
-        def dfs(i,state):
-            if i>=len(prices):
-                return 0
-            
-            profit=0
-            if state==0:
-                buy=-prices[i]+dfs(i+1,1)
-                skip=dfs(i+1,state)
-                profit=max(buy,skip)
-            elif state==1:
-                sell=prices[i]+dfs(i+1,0)-fee
-                skip=dfs(i+1,state)
-                profit=max(sell,skip)
-            
-            return profit
+        n=len(prices)
+        dp=[[0]*2 for _ in range(n+1)]
+
+        for i in range(n-1,-1,-1):
+            #buy
+            buy=-prices[i]+dp[i+1][1]
+            skip=dp[i+1][0]
+            dp[i][0]=max(buy,skip)
+
+            #sell
+            sell=prices[i]+dp[i+1][0]-fee
+            skip=dp[i+1][1]
+            dp[i][1]=max(sell,skip)
         
-        return dfs(0,0)
+        return dp[0][0]
