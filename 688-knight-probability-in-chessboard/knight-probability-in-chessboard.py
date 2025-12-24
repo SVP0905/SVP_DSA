@@ -15,6 +15,6 @@ class Solution:
             for dr,dc in directions:
                 cnt+=dfs(i+dr,j+dc,moves_left-1)
 
-            return cnt/8
+            return cnt
         
-        return dfs(row,column,k)
+        return dfs(row,column,k)/8**k
