@@ -6,10 +6,10 @@ class Solution:
         def dfs(i,j,prev):
             if i<0 or j<0 or i>=m or j>=n:
                 return 0
-            if matrix[i][j]<prev:
+            if matrix[i][j]<=prev:
                 return 0
             
-            cnt=float('-inf')
+            cnt=1
             for dr,dc in directions:
                 if matrix[i][j]>prev:
                     cnt=max(cnt,1+dfs(i+dr,j+dc,matrix[i][j]))
