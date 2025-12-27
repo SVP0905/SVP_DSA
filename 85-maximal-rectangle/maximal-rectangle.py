@@ -1,43 +1,40 @@
 class Solution:
-    def find_max(self,heights):
+    def largest_rect(self,heights):
         n=len(heights)
-        stack=[]
         max_=0
-
+        stack=[]
         for i in range(n):
             while stack and heights[i]<heights[stack[-1]]:
                 cur_idx=stack.pop()
-                nse=i
-                pse=stack[-1] if stack else -1
+                left=stack[-1] if stack else -1
+                right=i
+                width=right-left-1
                 height=heights[cur_idx]
-                width=nse-pse-1
-                max_=max(max_,height*width)
+                max_=max(max_,width*height)
+            
             stack.append(i)
         
         while stack:
             cur_idx=stack.pop()
-            nse=n
-            pse=stack[-1] if stack else -1
+            left=stack[-1] if stack else -1
+            right=n
+            width=right-left-1
             height=heights[cur_idx]
-            width=nse-pse-1
-            max_=max(max_,height*width)
+            max_=max(max_,width*height)
+
         
         return max_
 
     def maximalRectangle(self, matrix: List[List[str]]) -> int:
         m,n=len(matrix),len(matrix[0])
-
-        max_=0
         heights=[0]*n
+        res=0
         for i in range(m):
             for j in range(n):
-                if matrix[i][j]=='1':
-                    heights[j]+=1
-                else:
+                if matrix[i][j]=='0':
                     heights[j]=0
-
-                
-            max_=max(max_,self.find_max(heights))
+                else:
+                    heights[j]+=1
+            res=max(res,self.largest_rect(heights))
         
-        return max_
-        
+        return res
