@@ -1,13 +1,38 @@
 class Solution:
     def lastStoneWeightII(self, stones: List[int]) -> int:
-        @cache
-        def dfs(i,cur_val):
-            if i>=len(stones):
-                return abs(cur_val)
-            
-            add=dfs(i+1,cur_val+stones[i])
-            sub=dfs(i+1,cur_val-stones[i])
+        total=sum(stones)
+        target=total//2
+        n=len(stones)
+        dp=[[False]*(target+1) for _ in range(n+1)]
 
-            return min(add,sub)
+        for i in range(n+1):
+            dp[i][0]=True   # it possible to have target 0 with 0 stones
+
         
-        return dfs(0,0)
+        for i in range(n-1,-1,-1):
+            for j in range(1,target+1):
+                 # we already filled for target 0
+                skip=dp[i+1][j]
+
+                take=False
+                if j>=stones[i]:
+                    take=dp[i+1][j-stones[i]] 
+                    # if we take we need to have formed(j-stones) with the remaining stones
+                
+                dp[i][j]=skip or take
+        
+
+
+        for j in range(target,-1,-1):
+            if dp[0][j]:
+                return total-2*j
+        
+        
+                
+
+                
+
+
+
+        
+
