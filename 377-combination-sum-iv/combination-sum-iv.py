@@ -1,16 +1,13 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        @cache
-        def dfs(cur_sum):
-            if cur_sum==target:
-                return 1
-            if cur_sum>target:
-                return 0
-            
-            cnt=0
+        dp=[0]*(target+1)
+
+        dp[0]=1
+
+
+        for a in range(1,target+1):
             for num in nums:
-                cnt+=dfs(cur_sum+num)
-            
-            return cnt
+                if a-num>=0:
+                    dp[a]+=dp[a-num]
         
-        return dfs(0)
+        return dp[target]
