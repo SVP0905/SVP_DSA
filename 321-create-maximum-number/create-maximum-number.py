@@ -1,41 +1,42 @@
 class Solution:
     def maxNumber(self, nums1: List[int], nums2: List[int], k: int) -> List[int]:
-        m,n=len(nums1),len(nums2)
-
-        def most_subs(arr,k):
-            n1=len(arr)
+        def max_seq(seq,length):
+            x=len(seq)
             stack=[]
-            for i in range(n1):
-                while (stack and arr[i]>stack[-1] and len(stack)+(n1-i)>k):
+            map_={num:i for i,num in enumerate(seq)}
+            for i,num in enumerate(seq):
+                while stack and num>stack[-1] and len(stack)-1+(x-i)>=length:
                     stack.pop()
                 
-                if len(stack)<k:
-                    stack.append(arr[i])
+                if len(stack)<length:
+                    stack.append(num)
             
             return stack
+        
 
-
-        def merge(arr1,arr2):
-            m1,n1=len(arr1),len(arr2)
-            i,j=0,0
+        def merge(seq1,seq2):
             res=[]
-            while i<m1 and j<n1:
-                if arr1[i:]>arr2[j:]:
-                    res.append(arr1[i])
-                    i+=1
+            while seq1 or seq2:
+                if seq1>seq2:
+                    res.append(seq1.pop(0))
                 else:
-                    res.append(arr2[j])
-                    j+=1
+                    res.append(seq2.pop(0))
             
-            return res+arr1[i:]+arr2[j:]
-        
+            return res
 
-        best=[]
-        for i in range(max(0,k-n),min(k,m)+1):
-            sub1=most_subs(nums1,i)
-            sub2=most_subs(nums2,k-i)
-            candidate=merge(sub1,sub2)
-            if candidate>best:
-                best=candidate
+        m,n=len(nums1),len(nums2)
+        min_=max(0,k-n)
+        max_=min(m,k)
+        ans=[]
+        for i in range(min_,max_+1):
+            seq1=max_seq(nums1,i)
+            seq2=max_seq(nums2,k-i)
+
+            cur_res=merge(seq1,seq2)
+            if cur_res>ans:
+                ans=cur_res
         
-        return best
+        return ans
+
+
+
