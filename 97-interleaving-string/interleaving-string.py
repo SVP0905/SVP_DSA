@@ -27,16 +27,16 @@ class Solution:
             res=False
             if s1[i]==s3[k] and s2[j]==s3[k]:
                 res=dfs(i+1,j) or dfs(i,j+1)
-                if res:
-                    return True
+                # if res:
+                #     return True
             elif s1[i]==s3[k]:
                 res=dfs(i+1,j)
-                if res:
-                    return True
+                # if res:
+                #     return True
             elif s2[j]==s3[k]:
                 res=dfs(i,j+1)
-                if res:
-                    return True
+                # if res:
+                #     return True
             
             return res
         
