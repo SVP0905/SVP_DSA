@@ -1,27 +1,43 @@
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        m,n=len(s1),len(s2)
+        m,n,l=len(s1),len(s2),len(s3)
 
-        if (m+n)!=len(s3):
+        if m+n!=l:
             return False
         
-        dp=[[False]*(n+1) for _ in range(m+1)]
-        dp[m][n]=True
 
-        for j in range(n-1,-1,-1):
-            if s2[j]==s3[j+m]:
-                dp[m][j]=dp[m][j+1]
+        @cache
+        def dfs(i,j):
+            k=i+j
+            if k==l:
+                return True
+            
+            if i==m:
+                if s2[j:]==s3[k:]:
+                    return True
+                else:
+                    return False
+            
+            if j==n:
+                if s1[i:]==s3[k:]:
+                    return True
+                else:
+                    return False
+            
+            res=False
+            if s1[i]==s3[k] and s2[j]==s3[k]:
+                res=dfs(i+1,j) or dfs(i,j+1)
+                if res:
+                    return True
+            elif s1[i]==s3[k]:
+                res=dfs(i+1,j)
+                if res:
+                    return True
+            elif s2[j]==s3[k]:
+                res=dfs(i,j+1)
+                if res:
+                    return True
+            
+            return res
         
-        for i in range(m-1,-1,-1):
-            if s1[i]==s3[i+n]:
-                dp[i][n]=dp[i+1][n]
-        
-
-        for i in range(m-1,-1,-1):
-            for j in range(n-1,-1,-1):
-                if s1[i]==s3[i+j]:
-                    dp[i][j]|=dp[i+1][j]
-                if s2[j]==s3[i+j]:
-                    dp[i][j]|=dp[i][j+1]
-        
-        return dp[0][0]
+        return dfs(0,0)
