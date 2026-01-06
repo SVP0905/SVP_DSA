@@ -10,17 +10,18 @@ class Solution:
         if not root:
             return None
         
-        def dfs(node,p,q):
-            if not node:
-                return None
-            
-
-            # left,right=None,None
-            if p.val<node.val and q.val<node.val:
-                return dfs(node.left,p,q)
-            elif p.val>node.val and q.val>node.val:
-                return dfs(node.right,p,q)
-            else:
-                return node
+        if root==p or root==q:
+            return root
         
-        return dfs(root,p,q)
+        left_res=self.lowestCommonAncestor(root.left,p,q)
+        right_res=self.lowestCommonAncestor(root.right,p,q)
+
+        if left_res and right_res:
+            return root
+        
+
+        if left_res:
+            return left_res
+        else:
+            return right_res
+
