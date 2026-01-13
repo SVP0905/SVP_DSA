@@ -1,14 +1,13 @@
 class Solution:
     def findCenter(self, edges: List[List[int]]) -> int:
+        A_u=edges[0][0]
+        A_v=edges[0][1]
 
-        degree={}
-        for edge in edges:
-            u,v=edge
+        B_u=edges[1][0]
+        B_v=edges[1][1]
 
-            degree[u]=degree.get(u,0)+1
-
-            degree[v]=degree.get(v,0)+1
-        
-        for node in degree:
-            if degree[node]>1:
-                return node
+        if A_u==B_u or A_u==B_v:
+            return A_u
+        else:
+            return A_v
+            
