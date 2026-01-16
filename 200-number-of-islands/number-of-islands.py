@@ -2,7 +2,7 @@ class DSU:
     def __init__(self,n):
         self.parent=[i for i in range(n+1)]
         self.size=[1]*(n+1)
-        self.num_comps=n
+
     
     def find(self,u):
         if self.parent[u]==u:
@@ -26,7 +26,6 @@ class DSU:
             self.parent[pv]=pu
             self.size[pu]+=self.size[pv]
         
-        self.num_comps-=1
         return True
 
 
