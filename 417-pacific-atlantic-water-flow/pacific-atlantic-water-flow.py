@@ -1,37 +1,39 @@
 class Solution:
-    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+    def bfs(self,heights,starts):
         m,n=len(heights),len(heights[0])
-        pacific,atlantic=[],[]
-
-        for j in range(n):
-            pacific.append((0,j))
-            atlantic.append((m-1,j))
-        for i in range(m):
-            pacific.append((i,0))
-            atlantic.append((i,n-1))
-
+        q=deque(starts)
+        visited=set(starts)
         directions=[(0,1),(1,0),(0,-1),(-1,0)]
 
-        def dfs(start_cells):
-            visited=set()
-            stack=start_cells[:]
-
-            while stack:
-                r,c=stack.pop()
-                visited.add((r,c))
-                for dr,dc in directions:
-                    new_dr,new_dc=dr+r,dc+c
-                    if (0<=new_dr<m and 0<=new_dc<n and heights[new_dr][new_dc]>=heights[r][c] and (new_dr,new_dc) not in visited):
-                        stack.append((new_dr,new_dc))
-                        visited.add((new_dr,new_dc))
-            return visited
+        while q:
+            r,c=q.popleft()
+            for dr,dc in directions:
+                nr,nc=dr+r,dc+c
+                if 0<=nr<m and 0<=nc<n and heights[nr][nc]>=heights[r][c] and (nr,nc) not in visited:
+                    visited.add((nr,nc))
+                    q.append((nr,nc))
         
-        pacific_cells=dfs(pacific)
-        atlantic_cells=dfs(atlantic)
+        return visited
 
-        res=[]
-        for cell in pacific_cells:
-            if cell in atlantic_cells:
-                res.append([cell[0],cell[1]])
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        m,n=len(heights),len(heights[0])
+        pacific_border_cells=[]
+        for i in range(m):
+            for j in range(n):
+                if i==0 or j==0:
+                    pacific_border_cells.append((i,j))
+        
 
-        return res
+        atlantic_border_cells=[]
+        for i in range(m):
+            for j in range(n):
+                if i==m-1 or j==n-1:
+                    atlantic_border_cells.append((i,j))
+        
+
+        pacific=self.bfs(heights,pacific_border_cells)
+        atlantic=self.bfs(heights,atlantic_border_cells)
+        
+
+        return list(pacific & atlantic)
+        
