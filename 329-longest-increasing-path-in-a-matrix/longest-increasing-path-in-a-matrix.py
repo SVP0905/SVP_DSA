@@ -2,23 +2,22 @@ class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
         m,n=len(matrix),len(matrix[0])
         directions=[(0,1),(1,0),(0,-1),(-1,0)]
+
         @cache
-        def dfs(i,j,prev):
-            if i<0 or j<0 or i>=m or j>=n:
-                return 0
-            if matrix[i][j]<=prev:
-                return 0
-            
+        def dfs(i,j):
             cnt=1
             for dr,dc in directions:
-                if matrix[i][j]>prev:
-                    cnt=max(cnt,1+dfs(i+dr,j+dc,matrix[i][j]))
+                nr,nc=dr+i,dc+j
+                if 0<=nr<m and 0<=nc<n and matrix[nr][nc]>matrix[i][j]:
+                    cnt=max(cnt,1+dfs(nr,nc))
             
             return cnt
         
-        res=float('-inf')
+
+        res=0
         for i in range(m):
             for j in range(n):
-                res=max(res,dfs(i,j,-1))
+                res=max(res,dfs(i,j))
         
         return res
+            
