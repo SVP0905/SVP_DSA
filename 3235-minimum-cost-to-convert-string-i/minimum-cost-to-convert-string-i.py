@@ -1,38 +1,46 @@
 class Solution:
     def minimumCost(self, source: str, target: str, original: List[str], changed: List[str], cost: List[int]) -> int:
-        adj=defaultdict(list)
+        adj_list=defaultdict(list)
 
-        for i in range(len(original)):
-            adj[ord(original[i])-ord('a')].append((cost[i],ord(changed[i])-ord('a')))
-        
+        for u,v,wei in zip(original,changed,cost):
+            adj_list[u].append((wei,v))
+
+        global_map=defaultdict(dict)
+
+        @cache
         def dijkstra(s):
-            dist=[float('inf')]*26
-            dist[s]=0
-            h=[(0,s)] #wei,node
+            map_=defaultdict(lambda : float('inf'))
+
+            map_[s]=0
+
+            h=[(0,s)]
 
             while h:
-                w,n=heapq.heappop(h)
-                for nw,nei in adj[n]:
-                    new_wei=w+nw
-                    if new_wei<dist[nei]:
-                        dist[nei]=new_wei
-                        heapq.heappush(h,(new_wei,nei))
-            
-            return dist
+                wei,node=heapq.heappop(h)
+
+                for nei_wei,nei in adj_list[node]:
+                    if nei_wei+wei<map_[nei]:
+                        map_[nei]=nei_wei+wei
+                        heapq.heappush(h,(nei_wei+wei,nei))
+
+            return map_
+
+
+        for s in source:
+            global_map[s]=dijkstra(s)
         
-        mn_cost=[dijkstra(i) for i in range(26)]
 
         n=len(source)
         res=0
-
         for i in range(n):
-            s=ord(source[i])-ord('a')
-            d=ord(target[i])-ord('a')
-
-            if mn_cost[s][d]==float('inf'):
-                return -1
-            
-            res+=mn_cost[s][d]
+            if source[i]==target[i]:
+                continue
+            elif source[i]!=target[i]:
+                cost=global_map[source[i]].get(target[i],float('inf'))
+                if cost==float('inf'):
+                    return -1
+                else:
+                    res+=cost
         
         return res
 
