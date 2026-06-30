@@ -1,10 +1,12 @@
 class Solution:
     def numberOfSubstrings(self, s: str) -> int:
-        last_pos=[-1]*3
-        total=0
+        seen={'a':-1,'b':-1,'c':-1}
 
-        for pos in range(len(s)):
-            last_pos[ord(s[pos])-ord('a')]=pos
-            total+=1+min(last_pos)
+        cnt=0
+        for r,char in enumerate(s):
+            seen[char]=r
+
+            if -1 not in seen.values():
+                cnt+=min(seen.values())+1
         
-        return total
+        return cnt
