@@ -21,6 +21,4 @@ class Solution:
         dfs(1,res)
         return res
 
-        return res
-
                 
