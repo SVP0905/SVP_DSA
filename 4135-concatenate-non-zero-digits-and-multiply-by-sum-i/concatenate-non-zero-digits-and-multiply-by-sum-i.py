@@ -1,25 +1,23 @@
 class Solution:
     def sumAndMultiply(self, n: int) -> int:
-        arr=[]
+        x=0
+        sum_=0
+        place=1
 
         while n:
             digit=n%10
             
             if digit!=0:
-                arr.append(digit)
-
+                x=(digit*place)+x
+                sum_+=digit
+                place*=10
             n=n//10
         
-        sum_=sum(arr)
-        print(sum_)
-        print(arr)
-        arr.reverse()
 
-        x=0
-        for a in arr:
-            x=x*10+a
+        print(sum_)
+        print(x)
+
+        return x*sum_
         
-        res=x*sum_
         
-        return res
         
